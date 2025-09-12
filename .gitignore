@@ -1,0 +1,11 @@
+data/
+__pycache__/
+logs/
+pretrain_weights/
+**/__pycache__/
+.vector_cache/
+experiment_results/*
+seed32_task0_checkpoint_mask_back.pkl
+seed32_task0_checkpoint_p_mask.pkl
+.vscode
+launch.json

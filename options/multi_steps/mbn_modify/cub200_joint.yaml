@@ -1,0 +1,106 @@
+######### Basic Settings #########
+basic:
+    device: '0'
+    seed: [42, 100,1993] # icarl 官方代码给的种子是 1993
+
+    dataset: cub200
+    shuffle: false
+
+    # Method Choises: icarl, end2end, dr, ucir, bic, lwm, podnet, mas, joint， finetune
+    method: mbn_modify
+    method_type: multi_steps
+    eval_metric: acc
+    openset_test: true
+
+    # Backbone Choises: resnet18, resnet18_cbam, cosine_resnet18, 
+    # resnet32, cosine_resnet32, resnet34, cosine_resnet34, resnet50
+    backbone: resnet18
+    pretrained: true
+    save_models: false 
+    memory_size: 400
+
+    fixed_memory: false
+    # memory_per_class: 20
+    sampling_method: herding # herding, random, closest_to_mean 
+
+    ######### Task Settings, unimportant in Joint #########
+    # for some datasets(e.g. MedMNist), this will be ignored
+    split_dataset: true
+    init_cls: 200
+    increment: 0
+
+
+######### Method's Hyperparameters #########
+special:
+    incre_type: cil
+
+
+######### Experiment Settings for Datasets #########
+options:
+    # experiment settings for cifar100
+    cub200:         
+        resnet18:
+            img_size: 224
+
+            epochs: 200
+            batch_size: 128
+            num_workers: 8
+
+            opt_type: sgd
+            lrate: 0.01 # 0.005 # 0.1
+
+            weight_decay: 0.0001
+            opt_mom: 0.9
+
+            scheduler: multi_step
+            milestones: [70, 130, 170]
+            lrate_decay: 0.1
+
+            epochs_finetune: 100 # 50
+            lrate_finetune: 0.01 # 0.001
+            milestones_finetune: [55, 80]
+    
+        resnet34:
+            img_size: 224
+
+            epochs: 200
+            batch_size: 128
+            num_workers: 8
+
+            opt_type: sgd
+            lrate: 0.01 # 0.1
+
+            weight_decay: 0.0002
+            opt_mom: 0.9
+
+            scheduler: multi_step
+            milestones: [70, 130, 170]
+            lrate_decay: 0.1
+
+            epochs_finetune: 50
+            lrate_finetune:  0.001
+            milestones_finetune: [15, 35]
+
+
+        resnet50:
+            img_size: 224
+
+            epochs: 200
+            batch_size: 128
+            num_workers: 8
+
+            opt_type: sgd
+            lrate: 0.01 # 0.1
+
+            weight_decay: 0.0002
+            opt_mom: 0.9
+
+            scheduler: multi_step
+            milestones: [70, 130, 170]
+            lrate_decay: 0.1
+
+            epochs_finetune: 50
+            lrate_finetune:  0.001
+            milestones_finetune: [15, 35]
+            
+            
