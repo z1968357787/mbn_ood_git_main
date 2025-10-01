@@ -38,20 +38,6 @@ class mbn_modify(Finetune_IL):
         self._network = self._network.cuda()
         self.set_train_bn_head() 
         
-        self._logger.info('All params: {}'.format(count_parameters(self._network)))
-        self._logger.info('Trainable params: {}'.format(count_parameters(self._network, True)))
-
-        self.trainable_parameters_list.append(count_parameters(self._network, True))
-        self.parameters_list.append(count_parameters(self._network))
-
-        self._logger.info("trainable parameters list is :{}".format(self.trainable_parameters_list))
-        self._logger.info("total parameters list is :{}".format(self.parameters_list))
-
-        if self._cur_task > 0 : #
-            self._logger.info('last model feature extractor Trainable params: {}'.format(count_parameters(self._network.feature_extractors[-2], True)))
-            # self._logger.info('last model linear Trainable params: {}'.format(count_parameters(self._network.aux_fcs[-2], True)))
-            self._logger.info('last model linear Trainable params: {}'.format(count_parameters(self._network.seperate_fcs[-2], True)))
-        
         self._network = self._network.cuda()
 
     def set_train_bn_head(self): #only bn and head are trainable
